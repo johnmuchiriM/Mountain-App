@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_cubit/cubit/app_cubit_states.dart';
+import 'package:flutter_cubit/cubit/app_cubits.dart';
 import 'package:flutter_cubit/misc/colors.dart';
 import 'package:flutter_cubit/widgets/app_buttons.dart';
 import 'package:flutter_cubit/widgets/app_large_text.dart';
@@ -18,7 +21,9 @@ class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+        body: BlocBuilder<AppCubits, CubitStates>(builder: (context, state) {
+      DetailState detail = state as DetailState;
+      return Container(
           height: double.maxFinite,
           width: double.maxFinite,
           child: Stack(
@@ -29,9 +34,11 @@ class _DetailPageState extends State<DetailPage> {
                   child: Container(
                     width: double.maxFinite,
                     height: 350,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('img/mountain.jpeg'),
+                          image: NetworkImage(
+                              'http://mark.bslmeiyu.com/uploads/' +
+                                  detail.place.img),
                           fit: BoxFit.cover),
                     ),
                   )),
@@ -41,8 +48,10 @@ class _DetailPageState extends State<DetailPage> {
                   child: Row(
                     children: [
                       IconButton(
-                        onPressed: () {},
-                        icon: Icon(Icons.menu),
+                        onPressed: () {
+                          BlocProvider.of<AppCubits>(context).goHome();
+                        },
+                        icon: const Icon(Icons.arrow_back),
                         color: Colors.white,
                       ),
                       const SizedBox(
@@ -75,12 +84,12 @@ class _DetailPageState extends State<DetailPage> {
                         Row(
                           children: [
                             AppLargeText(
-                              text: 'Yosemite',
+                              text: detail.place.name,
                               color: Colors.black.withOpacity(0.8),
                             ),
                             const Spacer(),
                             AppLargeText(
-                              text: '\$ 250',
+                              text: '\$' + (detail.place.price).toString(),
                               color: AppColors.mainColor,
                             )
                           ],
@@ -98,7 +107,7 @@ class _DetailPageState extends State<DetailPage> {
                               width: 5,
                             ),
                             AppText(
-                              text: 'USA, California',
+                              text: detail.place.location,
                               color: AppColors.textColor1,
                             )
                           ],
@@ -120,7 +129,7 @@ class _DetailPageState extends State<DetailPage> {
                             ),
                             const SizedBox(width: 10),
                             AppText(
-                              text: "(4.0)",
+                              text: "(5.0)",
                               color: AppColors.textColor2,
                             )
                           ],
@@ -179,8 +188,7 @@ class _DetailPageState extends State<DetailPage> {
                           height: 10,
                         ),
                         AppText(
-                          text:
-                              "You must go for a travel. Travelling helps get rid of of pressure.Go to the mountains to see nature.",
+                          text: detail.place.description,
                           color: AppColors.mainTextColor,
                         )
                       ],
@@ -209,7 +217,7 @@ class _DetailPageState extends State<DetailPage> {
                     ],
                   ))
             ],
-          )),
-    );
+          ));
+    }));
   }
 }
