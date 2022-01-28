@@ -5,6 +5,7 @@ import 'package:flutter_cubit/cubit/app_cubit_states.dart';
 import 'package:flutter_cubit/cubit/app_cubits.dart';
 import 'package:flutter_cubit/pages/detail_page.dart';
 import 'package:flutter_cubit/pages/home_page.dart';
+import 'package:flutter_cubit/pages/navpages/main_page.dart';
 import 'package:flutter_cubit/pages/welcome_page.dart';
 
 class AppCubitLogics extends StatefulWidget {
@@ -28,7 +29,7 @@ class _AppCubitLogicsState extends State<AppCubitLogics> {
           );
         }
         if (state is LoadedState) {
-          return HomePage();
+          return MainPage();
         }
         if (state is DetailState) {
           return DetailPage();
