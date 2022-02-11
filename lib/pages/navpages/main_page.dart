@@ -6,7 +6,7 @@ import 'package:flutter_cubit/pages/navpages/my_page.dart';
 import 'package:flutter_cubit/pages/navpages/search_page.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -45,12 +45,11 @@ class _MainPageState extends State<MainPage> {
         showUnselectedLabels: false,
         elevation: 0,
         items: const [
-          BottomNavigationBarItem(title: Text('Home'), icon: Icon(Icons.apps)),
+          BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.apps)),
           BottomNavigationBarItem(
-              title: Text('Bar'), icon: Icon(Icons.bar_chart_outlined)),
-          BottomNavigationBarItem(
-              title: Text('Search'), icon: Icon(Icons.search)),
-          BottomNavigationBarItem(title: Text('My'), icon: Icon(Icons.person)),
+              label: 'Bar', icon: Icon(Icons.bar_chart_outlined)),
+          BottomNavigationBarItem(label: 'Search', icon: Icon(Icons.search)),
+          BottomNavigationBarItem(label: 'My', icon: Icon(Icons.person)),
         ],
       ),
     );
